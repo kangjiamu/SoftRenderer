@@ -1,0 +1,8 @@
+﻿  SoftRender.cpp
+D:\kjm\softrender-kjm\SoftRender\LineDrawer.h(12,17): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+D:\kjm\softrender-kjm\SoftRender\LineDrawer.h(13,17): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+  Triangle.cpp
+D:\kjm\softrender-kjm\SoftRender\LineDrawer.h(12,17): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+D:\kjm\softrender-kjm\SoftRender\LineDrawer.h(13,17): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+  正在生成代码...
+  SoftRender.vcxproj -> D:\kjm\softrender-kjm\SoftRender\x64\Debug\SoftRender.exe

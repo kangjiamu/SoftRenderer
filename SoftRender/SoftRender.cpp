@@ -3,6 +3,15 @@
 
 #include "framework.h"
 #include "SoftRender.h"
+#include <iostream>
+#include "Vector.h"
+#include "Matrix.h"
+#include "Vertex.h"
+#include "Camera.h"
+#include "Triangle.h"
+#include "LineDrawer.h"
+#include "DrawingManager.h"
+
 
 #define MAX_LOADSTRING 100
 
@@ -24,9 +33,26 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
-
+    /*
     // TODO: Place code here.
+    // 初始化三角形
+    Vertex originalV1 = { 0, 0 };
+    Vertex originalV2 = { 100, 50 };
+    Vertex originalV3 = { 50, 150 };
 
+    // 定义变换参数
+    float scaleX = 2.0f, scaleY = 2.0f, translateX = 100.0f, translateY = 100.0f;
+
+    // 进行坐标变换
+    Vertex v1 = originalV1.transform(scaleX, scaleY, translateX, translateY);
+    Vertex v2 = originalV2.transform(scaleX, scaleY, translateX, translateY);
+    Vertex v3 = originalV3.transform(scaleX, scaleY, translateX, translateY);
+
+    // 创建三角形并添加到绘图管理器中
+    Triangle triangle(v1, v2, v3);
+    DrawingManager drawingManager;
+    drawingManager.addTriangle(triangle);
+*/
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_SOFTRENDER, szWindowClass, MAX_LOADSTRING);
@@ -56,6 +82,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         HDC hdc = BeginPaint(msg.hwnd, &ps);
 
         SetPixel(hdc, 100, 100, RGB(255, 0, 0));
+        // 绘制所有三角形
+        // drawingManager.drawAll(hdc);
+        LineDrawer::drawLine(hdc, 100, 100, 300, 400, RGB(255, 0, 0));
         EndPaint(msg.hwnd, &ps);
     }
 

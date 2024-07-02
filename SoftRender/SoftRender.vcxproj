@@ -127,13 +127,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="DrawingManager.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="LineDrawer.h" />
+    <ClInclude Include="Matrix.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SoftRender.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Triangle.h" />
+    <ClInclude Include="Vector.h" />
+    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="SoftRender.cpp" />
+    <ClCompile Include="Triangle.cpp" />
+    <ClCompile Include="Vector.cpp" />
+    <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SoftRender.rc" />
