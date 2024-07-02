@@ -135,6 +135,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SoftRender.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Transformer.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Vertex.h" />
@@ -153,6 +154,9 @@
   <ItemGroup>
     <Image Include="small.ico" />
     <Image Include="SoftRender.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.gitignore" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

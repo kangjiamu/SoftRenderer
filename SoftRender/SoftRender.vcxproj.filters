@@ -51,6 +51,9 @@
     <ClInclude Include="DrawingManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Transformer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SoftRender.cpp">
@@ -84,5 +87,8 @@
     <Image Include="SoftRender.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.gitignore" />
   </ItemGroup>
 </Project>

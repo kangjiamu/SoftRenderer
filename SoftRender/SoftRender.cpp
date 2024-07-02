@@ -33,26 +33,26 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
-    /*
+    
     // TODO: Place code here.
-    // 初始化三角形
-    Vertex originalV1 = { 0, 0 };
-    Vertex originalV2 = { 100, 50 };
-    Vertex originalV3 = { 50, 150 };
 
-    // 定义变换参数
-    float scaleX = 2.0f, scaleY = 2.0f, translateX = 100.0f, translateY = 100.0f;
+    // 创建三维顶点
+    Vertex v1(0, -1, 5);
+    Vertex v2(2, 0, 5);
+    Vertex v3(1, 1, 5);
 
-    // 进行坐标变换
-    Vertex v1 = originalV1.transform(scaleX, scaleY, translateX, translateY);
-    Vertex v2 = originalV2.transform(scaleX, scaleY, translateX, translateY);
-    Vertex v3 = originalV3.transform(scaleX, scaleY, translateX, translateY);
-
-    // 创建三角形并添加到绘图管理器中
+    // 创建一个三角形
     Triangle triangle(v1, v2, v3);
+
+    // 添加到绘图管理器
     DrawingManager drawingManager;
     drawingManager.addTriangle(triangle);
-*/
+
+    // 初始化变换矩阵
+    float worldMatrix[4][4], viewMatrix[4][4], projMatrix[4][4];
+    Transformer::createIdentityMatrix(worldMatrix);
+    Transformer::createIdentityMatrix(viewMatrix);
+    Transformer::createPerspectiveProjMatrix(3.1415926f / 4.0f, 800.0f / 600.0f, 0.1f, 100.0f, projMatrix);
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_SOFTRENDER, szWindowClass, MAX_LOADSTRING);
@@ -84,7 +84,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         SetPixel(hdc, 100, 100, RGB(255, 0, 0));
         // 绘制所有三角形
         // drawingManager.drawAll(hdc);
-        LineDrawer::drawLine(hdc, 100, 100, 300, 400, RGB(255, 0, 0));
+        drawingManager.drawAll(hdc, worldMatrix, viewMatrix, projMatrix, 800, 600);
+        // LineDrawer::drawLine(hdc, 100, 100, 300, 400, RGB(255, 0, 0));
         EndPaint(msg.hwnd, &ps);
     }
 
