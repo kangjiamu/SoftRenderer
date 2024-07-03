@@ -1,11 +1,14 @@
 #pragma once
 
 #include "Vector.h"
+#include "Color.h"
 
 class Vertex {
 public:
     Vector position;
+    Vector normal;
     float x, y, z, w;
+    Color color;
     Vertex(float x = 0, float y = 0, float z = 0, float w = 1) : x(x), y(y), z(z), w(w) {}
    // Vertex();
    // Vertex(float x, float y, float z);

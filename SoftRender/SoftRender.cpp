@@ -11,8 +11,10 @@
 #include "Triangle.h"
 #include "LineDrawer.h"
 #include "DrawingManager.h"
+#include "Color.h"
 
-
+int x_rotate = 0;
+int y_rotate = 0;
 #define MAX_LOADSTRING 100
 
 // Global Variables:
@@ -35,23 +37,51 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
     
     // TODO: Place code here.
+    
 
     // 创建三维顶点
-    Vertex v1(0, -1, 5);
-    Vertex v2(2, 0, 5);
-    Vertex v3(1, 1, 5);
+    Vertex v1(0, 0, 0);
+    Vertex v2(0, 0.5, 0);
+    Vertex v3(0.5, 0, 0);
+    Vertex v4(0.5, 0.5, 0);
+    Vertex v5(0, 0, 0.5);
+    Vertex v6(0, 0.5, 0.5);
+    Vertex v7(0.5, 0, 0.5);
+    Vertex v8(0.5, 0.5, 0.5);
 
     // 创建一个三角形
-    Triangle triangle(v1, v2, v3);
+    Triangle triangle1(v1, v3, v5);
+    Triangle triangle2(v1, v2, v3);
+    Triangle triangle3(v1, v2, v5);
+    Triangle triangle4(v3, v5, v7);
+    Triangle triangle5(v2, v5, v6);
+    Triangle triangle6(v2, v3, v4);
+    Triangle triangle7(v3, v4, v7);
+    Triangle triangle8(v2, v4, v6);
+    Triangle triangle9(v5, v6, v7);
+    Triangle triangle10(v4, v7, v8);
+    Triangle triangle11(v4, v6, v8);
+    Triangle triangle12(v6, v7, v8);
 
     // 添加到绘图管理器
     DrawingManager drawingManager;
-    drawingManager.addTriangle(triangle);
+    drawingManager.addTriangle(triangle1);
+    drawingManager.addTriangle(triangle2);
+    drawingManager.addTriangle(triangle3);
+    drawingManager.addTriangle(triangle4);
+    drawingManager.addTriangle(triangle5);
+    drawingManager.addTriangle(triangle6);
+    drawingManager.addTriangle(triangle7);
+    drawingManager.addTriangle(triangle8);
+    drawingManager.addTriangle(triangle9);
+    drawingManager.addTriangle(triangle10);
+    drawingManager.addTriangle(triangle11);
+    drawingManager.addTriangle(triangle12);
 
     // 初始化变换矩阵
     float worldMatrix[4][4], viewMatrix[4][4], projMatrix[4][4];
     Transformer::createIdentityMatrix(worldMatrix);
-    Transformer::createIdentityMatrix(viewMatrix);
+    Transformer::createViewMatrix(Vector(-5, 0, 0), Vector(1, 0, 0), Vector(0, 0, 1), viewMatrix);
     Transformer::createPerspectiveProjMatrix(3.1415926f / 4.0f, 800.0f / 600.0f, 0.1f, 100.0f, projMatrix);
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -81,10 +111,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(msg.hwnd, &ps);
 
-        SetPixel(hdc, 100, 100, RGB(255, 0, 0));
-        // 绘制所有三角形
-        // drawingManager.drawAll(hdc);
-        drawingManager.drawAll(hdc, worldMatrix, viewMatrix, projMatrix, 800, 600);
+       Transformer::createRotationMatrix(x_rotate, y_rotate, worldMatrix);
+       drawingManager.drawAll(hdc, worldMatrix, viewMatrix, projMatrix, 800, 600);
         // LineDrawer::drawLine(hdc, 100, 100, 300, 400, RGB(255, 0, 0));
         EndPaint(msg.hwnd, &ps);
     }
@@ -162,6 +190,29 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+    case WM_KEYDOWN:
+        switch (wParam)
+        {
+        case VK_UP:
+            x_rotate++;
+            OutputDebugString(_T("Up Arrow Pressed: x_rotate incremented\n"));
+            InvalidateRect(hWnd, nullptr, TRUE);
+            
+            break;
+        case VK_DOWN:
+            x_rotate--;
+            InvalidateRect(hWnd, nullptr, TRUE);
+            break;
+        case VK_LEFT:
+            y_rotate++;
+            InvalidateRect(hWnd, nullptr, TRUE);
+            break;
+        case VK_RIGHT:
+            y_rotate--;
+            InvalidateRect(hWnd, nullptr, TRUE);
+            break;
+        }
+        break;
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);

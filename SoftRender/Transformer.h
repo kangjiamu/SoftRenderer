@@ -1,5 +1,9 @@
 #pragma once
 #include "Vertex.h"
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 class Transformer {
 public:
     static Vertex project(const Vertex& vertex, const float worldMatrix[4][4], const float viewMatrix[4][4], const float projMatrix[4][4], int viewportWidth, int viewportHeight) {
@@ -43,5 +47,57 @@ public:
         matrix[3][0] = tx;
         matrix[3][1] = ty;
         matrix[3][2] = tz;
+    }
+
+    static void createViewMatrix(const Vector& p, const Vector& g, const Vector& t, float viewMatrix[4][4]) {
+        // Normalizing the direction vectors
+        Vector z = g.normalize();                       // Camera forward vector
+        Vector x = t.CrossProduct(z).normalize();              // Camera right vector
+        Vector y = z.CrossProduct(x);                          // Camera up vector
+
+        // Creating the rotation part of the view matrix
+        viewMatrix[0][0] = x.x; viewMatrix[0][1] = y.x; viewMatrix[0][2] = z.x; viewMatrix[0][3] = 0.0f;
+        viewMatrix[1][0] = x.y; viewMatrix[1][1] = y.y; viewMatrix[1][2] = z.y; viewMatrix[1][3] = 0.0f;
+        viewMatrix[2][0] = x.z; viewMatrix[2][1] = y.z; viewMatrix[2][2] = z.z; viewMatrix[2][3] = 0.0f;
+        viewMatrix[3][0] = 0.0f; viewMatrix[3][1] = 0.0f; viewMatrix[3][2] = 0.0f; viewMatrix[3][3] = 1.0f;
+
+        // Creating the translation part of the view matrix
+        viewMatrix[3][0] = -x.DotProduct(p);
+        viewMatrix[3][1] = -y.DotProduct(p);
+        viewMatrix[3][2] = -z.DotProduct(p);
+    }
+    static void createRotationMatrix(float x, float y, float matrix[4][4]) {
+        // 将旋转角度从度转换为弧度
+        float angleY = x * 15.0f * (static_cast<float>(M_PI) / 180.0f);
+        float angleZ = y * 15.0f * (static_cast<float>(M_PI) / 180.0f);
+
+        // 绕Y轴旋转的矩阵
+        float rotationY[4][4] = {
+            { cos(angleY), 0, sin(angleY), 0 },
+            { 0, 1, 0, 0 },
+            { -sin(angleY), 0, cos(angleY), 0 },
+            { 0, 0, 0, 1 }
+        };
+
+        // 绕Z轴旋转的矩阵
+        float rotationZ[4][4] = {
+            { cos(angleZ), -sin(angleZ), 0, 0 },
+            { sin(angleZ), cos(angleZ), 0, 0 },
+            { 0, 0, 1, 0 },
+            { 0, 0, 0, 1 }
+        };
+
+        // 初始化结果矩阵为单位矩阵
+        createIdentityMatrix(matrix);
+
+        // 合并两个旋转矩阵，顺序：先绕Y轴，再绕Z轴
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 4; ++j) {
+                matrix[i][j] = 0;
+                for (int k = 0; k < 4; ++k) {
+                    matrix[i][j] += rotationY[i][k] * rotationZ[k][j];
+                }
+            }
+        }
     }
 };

@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 
 class Vector {
 public:
@@ -13,5 +14,9 @@ public:
     Vector CrossProduct(const Vector& v) const;
 
     void print() const;
+    Vector normalize() const {
+        float length = std::sqrt(x * x + y * y + z * z);
+        return Vector(x / length, y / length, z / length);
+    }
 };
 
