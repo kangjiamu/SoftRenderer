@@ -145,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DrawingManager.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="SoftRender.cpp" />

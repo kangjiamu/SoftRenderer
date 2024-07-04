@@ -38,6 +38,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
     
     // TODO: Place code here.
+    ObjLoader loader;
+    if (loader.load("C:/Users/Administrator/Desktop/african_head.obj")) {
+        loader.printInfo();
+    }
+    else {
+        std::cerr << "Failed to load OBJ file" << std::endl;
+    }
+    DrawingManager drawingManager;
     
 
     // 创建三维顶点
@@ -65,7 +73,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Triangle triangle12(v6, v7, v8);
 
     // 添加到绘图管理器
-    DrawingManager drawingManager;
+    
     drawingManager.vertices_.emplace_back(v1);
     drawingManager.vertices_.emplace_back(v1);
     drawingManager.vertices_.emplace_back(v2);

@@ -27,6 +27,7 @@ public:
     // 打印OBJ文件信息
     void printInfo() const;
 
+
 private:
     std::vector<Vector> vertices;
     std::vector<Vec2> texCoords;
