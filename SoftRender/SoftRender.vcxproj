@@ -134,6 +134,7 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="LineDrawer.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SoftRender.h" />
     <ClInclude Include="targetver.h" />
@@ -145,6 +146,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="SoftRender.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Vector.cpp" />

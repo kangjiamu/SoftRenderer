@@ -12,6 +12,7 @@
 #include "LineDrawer.h"
 #include "DrawingManager.h"
 #include "Color.h"
+#include "ObjLoader.h"
 
 int x_rotate = 0;
 int y_rotate = 0;
@@ -65,6 +66,32 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // 添加到绘图管理器
     DrawingManager drawingManager;
+    drawingManager.vertices_.emplace_back(v1);
+    drawingManager.vertices_.emplace_back(v1);
+    drawingManager.vertices_.emplace_back(v2);
+    drawingManager.vertices_.emplace_back(v3);
+    drawingManager.vertices_.emplace_back(v4);
+    drawingManager.vertices_.emplace_back(v5);
+    drawingManager.vertices_.emplace_back(v6);
+    drawingManager.vertices_.emplace_back(v7);
+    drawingManager.vertices_.emplace_back(v8);
+
+    drawingManager.triangles_.emplace_back(1, 2, 5);
+    drawingManager.triangles_.emplace_back(1, 2, 3);
+    drawingManager.triangles_.emplace_back(1, 3, 5);
+    drawingManager.triangles_.emplace_back(3, 5, 7);
+    drawingManager.triangles_.emplace_back(2, 5, 6);
+    drawingManager.triangles_.emplace_back(2, 3, 4);
+    drawingManager.triangles_.emplace_back(3, 4, 7);
+    drawingManager.triangles_.emplace_back(2, 4, 6);
+    drawingManager.triangles_.emplace_back(5, 6, 7);
+    drawingManager.triangles_.emplace_back(4, 7, 8);
+    drawingManager.triangles_.emplace_back(4, 6, 8);
+    drawingManager.triangles_.emplace_back(6, 7, 8);
+
+    drawingManager.setAmbientLight(Color(0.3f, 0.3f, 0.3f));
+    drawingManager.setDirectionalLight(Vector(1, -1, -1).normalize(), Color(0.7f, 0.7f, 0.7f));
+
     drawingManager.addTriangle(triangle1);
     drawingManager.addTriangle(triangle2);
     drawingManager.addTriangle(triangle3);

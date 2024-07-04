@@ -5,11 +5,12 @@
 
 class Vertex {
 public:
-    Vector position;
     Vector normal;
     float x, y, z, w;
     Color color;
     Vertex(float x = 0, float y = 0, float z = 0, float w = 1) : x(x), y(y), z(z), w(w) {}
+    Vertex(float x, float y, float z ,float w, const Vector& norm, const Color& col)
+        : x(x), y(y), z(z), w(w), normal(norm), color(col) {}
    // Vertex();
    // Vertex(float x, float y, float z);
     Vertex transform(const float matrix[4][4]) const {
@@ -25,7 +26,7 @@ public:
             resultZ /= resultW;
         }
 
-        return Vertex(resultX, resultY, resultZ, resultW);
+        return Vertex(resultX, resultY, resultZ, resultW, normal, color);
     }
 };
 

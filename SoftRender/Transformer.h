@@ -12,7 +12,11 @@ public:
         // 视口变换，将归一化设备坐标(ndc)转换为屏幕坐标
         float x = (transformedVertex.x + 1) * 0.5f * viewportWidth;
         float y = viewportHeight - (transformedVertex.y + 1) * 0.5f * viewportWidth;  // 注意坐标系的翻转
-        return Vertex(x, y);
+        //return Vertex(x, y);
+        Vertex v = Vertex(x, y);
+        v.color = vertex.color;
+        v.normal = vertex.normal;
+        return v;
     }
 
     // 创建透视投影矩阵
