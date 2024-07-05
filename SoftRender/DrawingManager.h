@@ -58,29 +58,7 @@ public:
     float myMax(std::initializer_list<float> values) {
         return *std::max_element(values.begin(), values.end());
     }
-    void drawTriangle(HDC hdc, const Vertex& v0, const Vertex& v1, const Vertex& v2); /* {
-        // 获取三角形的边界框
-        int minX = static_cast<int>(myMin({ v0.x, v1.x, v2.x }));
-        int maxX = static_cast<int>(myMax({ v0.x, v1.x, v2.x }));
-        int minY = static_cast<int>(myMin({ v0.y, v1.y, v2.y }));
-        int maxY = static_cast<int>(myMax({ v0.y, v1.y, v2.y }));
-
-        // 遍历边界框内的每个像素
-        for (int y = minY; y <= maxY; ++y) {
-            for (int x = minX; x <= maxX; ++x) {
-                float w0, w1, w2;
-                if (computeBarycentricCoordinates(x, y, v0, v1, v2, w0, w1, w2)) {
-                    float depth = v0.z * w0 + v1.z * w1 + v2.z * w2;
-                    if (depth < depthBuffer_[y * width_ + x]) {
-                        depthBuffer_[y * width_ + x] = depth;
-                        // 通过重心坐标插值颜色
-                        Color color = v0.color * w0 + v1.color * w1 + v2.color * w2;
-                        SetPixel(hdc, x, y, color.toCOLORREF());
-                    }
-                }
-            }
-        }
-    }*/
+    void drawTriangle(HDC hdc, const Vertex& v0, const Vertex& v1, const Vertex& v2);
    
     
 };

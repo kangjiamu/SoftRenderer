@@ -9,10 +9,10 @@ void DrawingManager::calculateLighting(Vertex& vertex) {
 }
 
 void DrawingManager::drawAll(HDC hdc, const float worldMatrix[4][4], const float viewMatrix[4][4], const float projMatrix[4][4], int viewportWidth, int viewportHeight) {
-    for (auto& vertex : vertices_) {
+  /*  for (auto& vertex : vertices_) {
         calculateLighting(vertex);
-    }
-   /*
+    }*/
+  
     for (const auto& tri : triangles_) {
         // 投影三角形的每个顶点到2D坐标
 
@@ -23,7 +23,7 @@ void DrawingManager::drawAll(HDC hdc, const float worldMatrix[4][4], const float
         LineDrawer::drawLine(hdc, static_cast<int>(p1.x), static_cast<int>(p1.y), static_cast<int>(p2.x), static_cast<int>(p2.y), p1.color, p2.color);
         LineDrawer::drawLine(hdc, static_cast<int>(p2.x), static_cast<int>(p2.y), static_cast<int>(p3.x), static_cast<int>(p3.y), p2.color, p3.color);
         LineDrawer::drawLine(hdc, static_cast<int>(p3.x), static_cast<int>(p3.y), static_cast<int>(p1.x), static_cast<int>(p1.y), p3.color, p1.color);
-    }*/
+    } 
      for (const auto& tri : triangles_) {
         Vertex p1 = Transformer::project(vertices_[std::get<0>(tri)], worldMatrix, viewMatrix, projMatrix, viewportWidth, viewportHeight);
         Vertex p2 = Transformer::project(vertices_[std::get<1>(tri)], worldMatrix, viewMatrix, projMatrix, viewportWidth, viewportHeight);
@@ -60,12 +60,12 @@ void DrawingManager::drawTriangle(HDC hdc, const Vertex& v0, const Vertex& v1, c
             float w0, w1, w2;
             if (computeBarycentricCoordinates(x, y, v0, v1, v2, w0, w1, w2)) {
                 float depth = v0.z * w0 + v1.z * w1 + v2.z * w2;
-                if (depth < depthBuffer_[y * width_ + x]) {
+                //if (depth < depthBuffer_[y * width_ + x]) {
                     depthBuffer_[y * width_ + x] = depth;
                     // 通过重心坐标插值颜色
                     Color color = v0.color * w0 + v1.color * w1 + v2.color * w2;
                     SetPixel(hdc, x, y, color.toCOLORREF());
-                }
+                //}
             }
         }
     }
