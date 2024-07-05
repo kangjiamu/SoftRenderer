@@ -29,6 +29,13 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
+// 创建一个控制台窗口函数
+void CreateConsole() {
+    AllocConsole();
+   // freopen("CONOUT$", "w", stdout);
+    //freopen("CONOUT$", "w", stderr);
+}
+
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
@@ -38,25 +45,29 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
     
     // TODO: Place code here.
+    // 
+    // 创建一个控制台窗口
+    CreateConsole();
     ObjLoader loader;
     if (loader.load("C:/Users/Administrator/Desktop/african_head.obj")) {
         loader.printInfo();
+        std::cout << "hello bb8" << std::endl;
     }
     else {
         std::cerr << "Failed to load OBJ file" << std::endl;
     }
-    DrawingManager drawingManager;
+    DrawingManager drawingManager(800, 600);
     
 
     // 创建三维顶点
-    Vertex v1(0, 0, 0);
-    Vertex v2(0, 0.5, 0);
-    Vertex v3(0.5, 0, 0);
-    Vertex v4(0.5, 0.5, 0);
-    Vertex v5(0, 0, 0.5);
-    Vertex v6(0, 0.5, 0.5);
-    Vertex v7(0.5, 0, 0.5);
-    Vertex v8(0.5, 0.5, 0.5);
+    Vertex v1(0, 0, 0, 1, Vector(0, 0, -1), Color(1, 0, 0));
+    Vertex v2(0, 0.5, 0, 1, Vector(0, 0, -1), Color(1, 0, 0));
+    Vertex v3(0.5, 0, 0, 1, Vector(0, 0, -1), Color(1, 0, 0));
+    Vertex v4(0.5, 0.5, 0, 1, Vector(0, 0, -1), Color(1, 0, 0));
+    Vertex v5(0, 0, 0.5, 1, Vector(0, 0, 1), Color(0, 1, 0));
+    Vertex v6(0, 0.5, 0.5, 1, Vector(0, 0, 1), Color(0, 1, 0));
+    Vertex v7(0.5, 0, 0.5, 1, Vector(0, 0, 1), Color(0, 1, 0));
+    Vertex v8(0.5, 0.5, 0.5, 1, Vector(0, 0, 1), Color(0, 1, 0));
 
     // 创建一个三角形
     Triangle triangle1(v1, v3, v5);

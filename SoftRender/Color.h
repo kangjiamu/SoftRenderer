@@ -1,4 +1,5 @@
 #pragma once
+#include <Windows.h>
 
 struct Color
 {
@@ -17,5 +18,9 @@ struct Color
 
     static Color interpolate(const Color& c1, const Color& c2, float t) {
         return c1 * (1 - t) + c2 * t;
+    }
+
+    COLORREF toCOLORREF() const {
+        return RGB(static_cast<int>(r * 255), static_cast<int>(g * 255), static_cast<int>(b * 255));
     }
 };

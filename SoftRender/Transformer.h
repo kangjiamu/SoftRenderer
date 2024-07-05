@@ -10,10 +10,20 @@ public:
         Vertex transformedVertex = vertex.transform(worldMatrix).transform(viewMatrix).transform(projMatrix);
 
         // 视口变换，将归一化设备坐标(ndc)转换为屏幕坐标
+    
+        // 计算透视除法来得到归一化设备坐标 (NDC)
+        /*
+        float w = transformedVertex.w;
+        transformedVertex.x /= w;
+        transformedVertex.y /= w;
+        transformedVertex.z /= w; // 保留深度值，用于后面的深度缓冲
+*/
+        // 视口变换，将归一化设备坐标 (NDC) 转换为屏幕坐标
         float x = (transformedVertex.x + 1) * 0.5f * viewportWidth;
-        float y = viewportHeight - (transformedVertex.y + 1) * 0.5f * viewportWidth;  // 注意坐标系的翻转
-        //return Vertex(x, y);
-        Vertex v = Vertex(x, y);
+        float y = viewportHeight - (transformedVertex.y + 1) * 0.5f * viewportHeight; // 注意翻转 y 轴
+
+        // 创建并返回新的顶点，其中包含了屏幕坐标和深度值
+        Vertex v = Vertex(x, y, transformedVertex.z); // 这里假设 Vertex 构造函数接受 x, y, z
         v.color = vertex.color;
         v.normal = vertex.normal;
         return v;
