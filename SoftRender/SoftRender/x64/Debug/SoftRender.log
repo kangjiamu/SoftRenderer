@@ -2,12 +2,6 @@
 D:\kjm\softrender-kjm\SoftRender\LineDrawer.h(12,17): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
 D:\kjm\softrender-kjm\SoftRender\LineDrawer.h(13,17): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
 D:\kjm\softrender-kjm\SoftRender\DrawingManager.cpp(43,13): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\kjm\softrender-kjm\SoftRender\DrawingManager.cpp(61,50): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-D:\kjm\softrender-kjm\SoftRender\DrawingManager.cpp(61,47): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-  SoftRender.cpp
-D:\kjm\softrender-kjm\SoftRender\LineDrawer.h(12,17): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
-D:\kjm\softrender-kjm\SoftRender\LineDrawer.h(13,17): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
-D:\kjm\softrender-kjm\SoftRender\SoftRender.cpp(160,52): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-D:\kjm\softrender-kjm\SoftRender\SoftRender.cpp(160,42): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-  正在生成代码...
+D:\kjm\softrender-kjm\SoftRender\DrawingManager.cpp(77,50): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\kjm\softrender-kjm\SoftRender\DrawingManager.cpp(77,47): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
   SoftRender.vcxproj -> D:\kjm\softrender-kjm\SoftRender\x64\Debug\SoftRender.exe

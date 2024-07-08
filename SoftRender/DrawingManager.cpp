@@ -48,6 +48,22 @@ void DrawingManager::addTriangle(const Vertex& v0, const Vertex& v1, const Verte
 }
 
 void DrawingManager::drawTriangle(HDC hdc, const Vertex& v0, const Vertex& v1, const Vertex& v2) {
+
+    // 计算三角形的法向量
+    Vector edge1 = Vector(v1.x - v0.x, v1.y - v0.y, v1.z - v0.z);
+    Vector edge2 = Vector(v2.x - v0.x, v2.y - v0.y, v2.z - v0.z);
+    Vector normal = edge1.CrossProduct(edge2);
+    normal.normalize();
+
+    // 计算视线方向，这里假设视线方向是 (0, 0, 1)
+    Vector viewDir(0, 0, 1);
+
+    // 点积判断背面
+    float dotProduct = normal.DotProduct(viewDir);
+    if (dotProduct > 0) {
+        // 不需要绘制背面
+        return;
+    }
     // 获取三角形的边界框
     int minX = static_cast<int>(myMin({ v0.x, v1.x, v2.x }));
     int maxX = static_cast<int>(myMax({ v0.x, v1.x, v2.x }));
