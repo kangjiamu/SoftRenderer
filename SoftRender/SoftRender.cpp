@@ -29,12 +29,7 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
-// 创建一个控制台窗口函数
-void CreateConsole() {
-    AllocConsole();
-   // freopen("CONOUT$", "w", stdout);
-    //freopen("CONOUT$", "w", stderr);
-}
+
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -45,9 +40,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
     
     // TODO: Place code here.
-    // 
-    // 创建一个控制台窗口
-    CreateConsole();
+    
     ObjLoader loader;
     if (loader.load("C:/Users/Administrator/Desktop/african_head.obj")) {
         loader.printInfo();
@@ -60,28 +53,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     
 
     // 创建三维顶点
-    Vertex v1(0, 0, 0, 1, Vector(0, 0, -1), Color(1, 0, 0));
-    Vertex v2(0, 0.5, 0, 1, Vector(0, 0, -1), Color(1, 0, 0));
-    Vertex v3(0.5, 0, 0, 1, Vector(0, 0, -1), Color(1, 0, 0));
-    Vertex v4(0.5, 0.5, 0, 1, Vector(0, 0, -1), Color(1, 0, 0));
-    Vertex v5(0, 0, 0.5, 1, Vector(0, 0, 1), Color(0, 1, 0));
-    Vertex v6(0, 0.5, 0.5, 1, Vector(0, 0, 1), Color(0, 1, 0));
-    Vertex v7(0.5, 0, 0.5, 1, Vector(0, 0, 1), Color(0, 1, 0));
-    Vertex v8(0.5, 0.5, 0.5, 1, Vector(0, 0, 1), Color(0, 1, 0));
+    Vertex v1(0, 0, 0, 1, Vector(-1, -1, -1), Color(1, 0, 0));
+    Vertex v2(0, 0.5, 0, 1, Vector(-1, 1, -1), Color(1, 0, 0));
+    Vertex v3(0.5, 0, 0, 1, Vector(1, -1, -1), Color(1, 0, 0));
+    Vertex v4(0.5, 0.5, 0, 1, Vector(1, 1, -1), Color(1, 0, 0));
+    Vertex v5(0, 0, 0.5, 1, Vector(-1, -1, 1), Color(0, 1, 0));
+    Vertex v6(0, 0.5, 0.5, 1, Vector(-1, 1, 1), Color(0, 1, 0));
+    Vertex v7(0.5, 0, 0.5, 1, Vector(1, -1, 1), Color(0, 1, 0));
+    Vertex v8(0.5, 0.5, 0.5, 1, Vector(1, 1, 1), Color(0, 1, 0));
 
-    // 创建一个三角形
-    Triangle triangle1(v1, v3, v5);
-    Triangle triangle2(v1, v2, v3);
-    Triangle triangle3(v1, v2, v5);
-    Triangle triangle4(v3, v5, v7);
-    Triangle triangle5(v2, v5, v6);
-    Triangle triangle6(v2, v3, v4);
-    Triangle triangle7(v3, v4, v7);
-    Triangle triangle8(v2, v4, v6);
-    Triangle triangle9(v5, v6, v7);
-    Triangle triangle10(v4, v7, v8);
-    Triangle triangle11(v4, v6, v8);
-    Triangle triangle12(v6, v7, v8);
 
     // 添加到绘图管理器
     
@@ -96,33 +76,21 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     drawingManager.vertices_.emplace_back(v8);
 
     drawingManager.triangles_.emplace_back(1, 2, 5);
-    drawingManager.triangles_.emplace_back(1, 2, 3);
-    drawingManager.triangles_.emplace_back(1, 3, 5);
+    drawingManager.triangles_.emplace_back(1, 3, 2);
+    drawingManager.triangles_.emplace_back(1, 5, 3);
     drawingManager.triangles_.emplace_back(3, 5, 7);
-    drawingManager.triangles_.emplace_back(2, 5, 6);
+    drawingManager.triangles_.emplace_back(2, 6, 5);
     drawingManager.triangles_.emplace_back(2, 3, 4);
-    drawingManager.triangles_.emplace_back(3, 4, 7);
+    drawingManager.triangles_.emplace_back(3, 7, 4);
     drawingManager.triangles_.emplace_back(2, 4, 6);
     drawingManager.triangles_.emplace_back(5, 6, 7);
     drawingManager.triangles_.emplace_back(4, 7, 8);
-    drawingManager.triangles_.emplace_back(4, 6, 8);
-    drawingManager.triangles_.emplace_back(6, 7, 8);
+    drawingManager.triangles_.emplace_back(4, 8, 6);
+    drawingManager.triangles_.emplace_back(6, 8, 7);
 
-    drawingManager.setAmbientLight(Color(0.3f, 0.3f, 0.3f));
+    drawingManager.setAmbientLight(Color(0.0f, 0.0f, 0.3f));
     drawingManager.setDirectionalLight(Vector(1, -1, -1).normalize(), Color(0.7f, 0.7f, 0.7f));
 
-    drawingManager.addTriangle(triangle1);
-    drawingManager.addTriangle(triangle2);
-    drawingManager.addTriangle(triangle3);
-    drawingManager.addTriangle(triangle4);
-    drawingManager.addTriangle(triangle5);
-    drawingManager.addTriangle(triangle6);
-    drawingManager.addTriangle(triangle7);
-    drawingManager.addTriangle(triangle8);
-    drawingManager.addTriangle(triangle9);
-    drawingManager.addTriangle(triangle10);
-    drawingManager.addTriangle(triangle11);
-    drawingManager.addTriangle(triangle12);
 
     // 初始化变换矩阵
     float worldMatrix[4][4], viewMatrix[4][4], projMatrix[4][4];

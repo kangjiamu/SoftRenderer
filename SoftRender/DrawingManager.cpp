@@ -3,27 +3,38 @@ void DrawingManager::addTriangle(const Triangle& triangle) {
     triangles.push_back(triangle);
 }
 void DrawingManager::calculateLighting(Vertex& vertex) {
-    float NdotL = 0.0f > vertex.normal.DotProduct(directionalLight_.direction) ? 0.0f : vertex.normal.DotProduct(directionalLight_.direction);
+    // 计算点积
+    float NdotL = vertex.normal.DotProduct(directionalLight_.direction);
+
+    // 将点积限制在 [0, 1] 范围内
+    if (NdotL < 0.0f) {
+        NdotL = 0.0f;
+    }
+
+    // 通过 NdotL 缩放光颜色，计算漫反射光
     Color diffuse = directionalLight_.color * NdotL;
-    vertex.color = vertex.color + ambientLight_.color + diffuse;
+
+    // 合成顶点颜色与环境光和漫反射光
+    /*vertex.color = vertex.color + ambientLight_.color + diffuse;*/
+    vertex.color = vertex.color + ambientLight_.color;
 }
 
 void DrawingManager::drawAll(HDC hdc, const float worldMatrix[4][4], const float viewMatrix[4][4], const float projMatrix[4][4], int viewportWidth, int viewportHeight) {
-  /*  for (auto& vertex : vertices_) {
+    for (auto& vertex : vertices_) {
         calculateLighting(vertex);
-    }*/
+    }
   
-    for (const auto& tri : triangles_) {
-        // 投影三角形的每个顶点到2D坐标
+    //for (const auto& tri : triangles_) {
+    //    // 投影三角形的每个顶点到2D坐标
 
-        Vertex p1 = Transformer::project(vertices_[std::get<0>(tri)], worldMatrix, viewMatrix, projMatrix, viewportWidth, viewportHeight);
-        Vertex p2 = Transformer::project(vertices_[std::get<1>(tri)], worldMatrix, viewMatrix, projMatrix, viewportWidth, viewportHeight);
-        Vertex p3 = Transformer::project(vertices_[std::get<2>(tri)], worldMatrix, viewMatrix, projMatrix, viewportWidth, viewportHeight);
+    //    Vertex p1 = Transformer::project(vertices_[std::get<0>(tri)], worldMatrix, viewMatrix, projMatrix, viewportWidth, viewportHeight);
+    //    Vertex p2 = Transformer::project(vertices_[std::get<1>(tri)], worldMatrix, viewMatrix, projMatrix, viewportWidth, viewportHeight);
+    //    Vertex p3 = Transformer::project(vertices_[std::get<2>(tri)], worldMatrix, viewMatrix, projMatrix, viewportWidth, viewportHeight);
 
-        LineDrawer::drawLine(hdc, static_cast<int>(p1.x), static_cast<int>(p1.y), static_cast<int>(p2.x), static_cast<int>(p2.y), p1.color, p2.color);
-        LineDrawer::drawLine(hdc, static_cast<int>(p2.x), static_cast<int>(p2.y), static_cast<int>(p3.x), static_cast<int>(p3.y), p2.color, p3.color);
-        LineDrawer::drawLine(hdc, static_cast<int>(p3.x), static_cast<int>(p3.y), static_cast<int>(p1.x), static_cast<int>(p1.y), p3.color, p1.color);
-    } 
+    //    LineDrawer::drawLine(hdc, static_cast<int>(p1.x), static_cast<int>(p1.y), static_cast<int>(p2.x), static_cast<int>(p2.y), p1.color, p2.color);
+    //    LineDrawer::drawLine(hdc, static_cast<int>(p2.x), static_cast<int>(p2.y), static_cast<int>(p3.x), static_cast<int>(p3.y), p2.color, p3.color);
+    //    LineDrawer::drawLine(hdc, static_cast<int>(p3.x), static_cast<int>(p3.y), static_cast<int>(p1.x), static_cast<int>(p1.y), p3.color, p1.color);
+    //} 
      for (const auto& tri : triangles_) {
         Vertex p1 = Transformer::project(vertices_[std::get<0>(tri)], worldMatrix, viewMatrix, projMatrix, viewportWidth, viewportHeight);
         Vertex p2 = Transformer::project(vertices_[std::get<1>(tri)], worldMatrix, viewMatrix, projMatrix, viewportWidth, viewportHeight);
